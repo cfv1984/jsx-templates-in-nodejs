@@ -1,0 +1,22 @@
+{
+  "name": "dumbplates",
+  "version": "0.0.1",
+  "description": "A dumb template engine",
+  "main": "index.js",
+  "author": "Carlos Vergara <cfvergara@gmail.com>",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "serve": "lite-server",
+    "test": "node tests/index.js"
+  },
+  "dependencies": {
+    "lite-server": "2.4.0",
+    "pretty": "2.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.1.0",
+    "@babel/core": "7.1.0",
+    "@babel/plugin-transform-react-jsx": "7.0.0"
+  }
+}

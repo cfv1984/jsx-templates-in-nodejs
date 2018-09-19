@@ -1,0 +1,1 @@
+const para = require('./jsx/paragraph.jsx');
