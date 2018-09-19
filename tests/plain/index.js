@@ -1,15 +1,11 @@
-const paragraph     = require('./plain/paragraph');
-const img           = require('./plain/img');
-const complex       = require('./plain/complex');
+const paragraph = require('./paragraph');
+const img = require('./img');
+const complex = require('./complex');
+const withComponent = require('./with-component');
 
 module.exports = () => {
-    try{
-        paragraph();
-        img();
-        complex();
-        return;
-    }
-    catch(error){
-        return error.message;
-    }
+    img();
+    paragraph();
+    complex();
+    withComponent();
 }

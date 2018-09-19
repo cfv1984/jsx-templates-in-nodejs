@@ -1,9 +1,26 @@
+require("@babel/register");
+const {log, error:err} = console;
 const plain = require('./plain');
-const assert = require('assert');
+const jsx   = require('./jsx');
 
-const results = {
-    plain: plain(),
-    js: jsx()
+log("Markup generation tests");
+
+try{
+    log("- JSX");
+    jsx();
+}
+catch(error){
+    err(error.message);
+    process.exit(1);
 }
 
-console.log("All tests pass");
+try{
+    log("- Plain JS helper functions");
+    plain();
+}
+catch(error){
+    err(error.message);
+    process.exit(1);
+}
+
+log("All tests pass");

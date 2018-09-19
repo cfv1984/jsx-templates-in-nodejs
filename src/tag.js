@@ -1,8 +1,7 @@
-const Tag = (name, attributes = null, children = null, meta = {}) => ({
+const Tag = (name, attributes = null, ...children) => ({
     name,
     attributes: attributes !== null ? attributes : {},
-    children: children instanceof Array ? children : [children],
-    meta
+    children
 })
 
 module.exports = Tag;

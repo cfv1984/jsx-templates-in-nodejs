@@ -1,27 +1,18 @@
-const allValidAttributes = [
-    'accept', 'accept-charset', 'accesskey', 'action',
-    'align', 'allow', 'alt', 'async', 'autocapitalize',
-    'autocomplete', 'autofocus', 'autoplay', 'bgcolor',
-    'border', 'buffered', 'challenge', 'charset',
-    'checked', 'cite', 'class', 'code', 'codebase',
-    'color', 'cols', 'colspan', 'content', 'contenteditable',
-    'contextmenu', 'controls', 'coords', 'crossorigin', 'data',
-    'datetime', 'decoding', 'default', 'defer', 'dir',
-    'dirname', 'disabled', 'download', 'draggable', 'dropzone',
-    'enctype', 'for', 'form', 'formaction', 'headers', 'height',
-    'hidden', 'high', 'href', 'hreflang', 'http-equiv', 'icon',
-    'id', 'importance ', 'integrity', 'ismap', 'itemprop',
-    'keytype', 'kind', 'label', 'lang', 'language', 'lazyload ',
-    'list', 'loop', 'low', 'manifest', 'max', 'maxlength',
-    'minlength', 'media', 'method', 'min', 'multiple', 'muted',
-    'name', 'novalidate', 'open', 'optimum', 'pattern', 'ping',
-    'placeholder', 'poster', 'preload', 'radiogroup', 'readonly',
-    'rel', 'required', 'reversed', 'rows', 'rowspan', 'sandbox',
-    'scope', 'scoped', 'selected', 'shape', 'size', 'sizes', 'slot',
-    'span', 'spellcheck', 'src', 'srcdoc', 'srclang', 'srcset',
-    'start', 'step', 'style', 'summary', 'tabindex', 'target',
-    'title', 'translate', 'type', 'usemap', 'value', 'width', 'wrap'
-];
+const attributes = require('./lists/attributes');
+const { selfClosing: selfClosingTags } = require('./lists/tags');
+
+const log      = (...args) => console.log(
+    "\n=======================\n",
+    ...args,
+    "\n=======================\n"
+)
+
+const defaultOptions = { shouldFormat: false };
+
+const isSelfClosing = (tag) => {
+    if (!tag) throw new Error("undefined tag");
+    return tag.constructor === String && selfClosingTags.includes(tag);
+}
 
 const attributeBuilder = (map, key) => map[key] === Boolean(map[key]) ? value = map[key] : `${key}="${map[key]}"`;
 
@@ -29,34 +20,38 @@ const stringifyAttributes = (attributes = {}) => Object.keys(attributes)
     .map(attr => attributeBuilder(attributes, attr))
     .join(' ');
 
-const stringifyChildren = (children = [], shouldFormat = false) => children
-    .map(child => renderer(child, shouldFormat))
+const stringifyChildren = (children = [], options = defaultOptions) => children
+    .map(child => renderer(child, options))
     .join(' ');
 
 const format = (html) => require('pretty')(html, { ocd: true });
 
-const renderer = (node, { shouldFormat } = { shouldFormat: false }) => {
-    if (node.constructor === String) return node;
+const renderer = (input, options = defaultOptions) => {
+    if (input.constructor === String) return input;
 
-    const { name, attributes = {}, children = [], meta = {} } = node;
+    const { name, attributes = {}, children = [], meta = {} } = input;
+
     let stringifiedAttributes = stringifyAttributes(attributes);
-    let stringifiedChildren = stringifyChildren(children, shouldFormat);
-    const attributeSpace = stringifiedAttributes.length ? ' ' : '';
+    let stringifiedChildren   = stringifyChildren(children, options);
+    const attributeSpace      = stringifiedAttributes.length ? ' ' : '';
+    let output;
 
-    if (name instanceof Function) {
-        const output = name(attributes, children, meta);
-        return shouldFormat ? format(output) : output;
+    if (input instanceof Array) {
+        output = input.map(member => renderer(member, options));
     }
 
-    let stringified = meta.isSelfClosing ?
-        `<${name}${attributeSpace}${stringifiedAttributes}/>`
-        : `<${name}${attributeSpace}${stringifiedAttributes}>${stringifiedChildren}</${name}>`;
-
-    if (shouldFormat) {
-        return format(stringified);
+    else if (name instanceof Function) {
+        output = renderer(name(attributes, children));
+        return options.shouldFormat ? format(output) : output;
     }
 
-    return stringified;
-}
+    else {
+        output = isSelfClosing(name) ?
+            `<${name}${attributeSpace}${stringifiedAttributes}/>`
+            : `<${name}${attributeSpace}${stringifiedAttributes}>${stringifiedChildren}</${name}>`;
+    }
+
+    return options.shouldFormat ? format(output) : output;
+};
 
 module.exports = renderer;

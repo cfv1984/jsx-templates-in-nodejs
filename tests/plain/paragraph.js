@@ -1,15 +1,17 @@
-const assert = require('assert');
+const diff   = (first,second) => require('diff').diffChars(first, second).map(({value}) => value).filter(v => v);
+const assert    = require('assert');
 const {p, span} = require('../../src');
-const renderer = require('../../src/renderer');
+const render    = require('../../src/renderer');
 
-const object = p({}, [
+const object = p({class:"sorgo"}, [
     "This is a test text",
     span({}, ["With some complexity"]),
     "and then some more text"
 ]);
 
-const expected = '<p>This is a test text <span>With some complexity</span> and then some more text</p>';
-const actual   = renderer(object);
+const expected = require('fs')
+    .readFileSync(__dirname + '/../references/paragraph.html')
+    .toString();
+const actual   = render(object, { shouldFormat:true });
 
-const test = () => assert(actual === expected, "The paragraph tag was not correctly rendered. Result was: "+actual);
-module.exports = test;
+module.exports = () => assert(actual === expected, "Generated Paragraph is not equal to reference");
