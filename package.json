@@ -1,6 +1,6 @@
 {
   "name": "jsx-templates-in-nodejs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A dumb template engine",
   "main": "index.js",
   "author": "Carlos Vergara <cfvergara@gmail.com>",
