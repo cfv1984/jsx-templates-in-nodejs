@@ -1,4 +1,4 @@
-const { Renderer }   = require('../src/renderer/index');
+const Renderer   = require('../src/renderer/index');
 const defaultOptions = {
     shouldFormat: true
 };
