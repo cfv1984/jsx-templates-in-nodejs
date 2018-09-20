@@ -61,8 +61,32 @@ app.get('/users/:id', (req, res) => {
 });
 ```
 
+## [Express][4] template engine
+
+There is also an express template engine, developed in order to prevent the boilerplate above.
+
+To use it simply do: 
+
+```jsx
+const { Engine } = require('jsx-templates-in-nodejs');
+
+const app = express();
+
+app.set('views', './views');
+app.engine('jsx', Engine());
+app.set('view engine', 'jsx');
+
+app.get('/', function (req, res) {
+    res.render('profile', { 
+      // This will be received in the first argument of the function contained in the JSX template file described above
+      randomNumber: Math.floor(Math.random()*10240),
+    });
+});
+```
+
 
 
 [1]: https://babeljs.io/docs
 [2]: https://babeljs.io/docs/en/babel-plugin-transform-react-jsx
 [3]: https://babeljs.io/docs/en/babel-register
+[4]: http://expressjs.com/en/guide/using-template-engines.html
