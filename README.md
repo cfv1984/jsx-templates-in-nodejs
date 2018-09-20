@@ -27,7 +27,25 @@ Then setup your register hook like so:
 ```
 
 Then simply require your JSX files like so: 
+
+```jsx
+// views/profilePage.jsx
+
+const {Transform} = require('jsx-templates-in-nodejs');
+const UserHeader = require('./profile/Header');
+const ProfileDetails = require('./profile/Details');
+const defaults = {id: -1};
+
+module.exports = ({id} = defaults) => <div>
+  <UserHeader for={id} />
+  <ProfileDetails for={id} />
+  <p>Whaaaaaaaaaaat</p>
+</div>;
+```
+
 ```js
+// express route handler
+
 const { Renderer } = require('jsx-templates-in-nodejs');
 const profilePage = require("views/profile");
 
