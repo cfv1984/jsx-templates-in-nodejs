@@ -1,4 +1,4 @@
-const { Renderer }   = require('../index');
+const { Renderer }   = require('../src/renderer/index');
 const defaultOptions = {
     shouldFormat: true
 };
@@ -7,7 +7,7 @@ const isDefined  = (obj) => typeof (obj) !== 'undefined';
 const isCallable = (obj) => isDefined(obj) && obj instanceof Function;
 
 module.exports = (cfg = defaultOptions) => {
-    return function (fileName, vars = {}) {
+    return function (fileName, vars = {}, callback) {
         let contents;
         let output;
 
