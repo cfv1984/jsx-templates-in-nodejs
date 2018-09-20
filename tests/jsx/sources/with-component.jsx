@@ -1,5 +1,4 @@
-/** @jsx tag */
-const tag = require('../../../src/tag');
+const JSXTemplates = require('../../../src/tag');
 
 const Label = (props, children) => <span 
         class={props.class} 
