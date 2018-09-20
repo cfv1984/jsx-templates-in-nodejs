@@ -1,6 +1,6 @@
 {
   "name": "dumbplates",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A dumb template engine",
   "main": "index.js",
   "author": "Carlos Vergara <cfvergara@gmail.com>",
