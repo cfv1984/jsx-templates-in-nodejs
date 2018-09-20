@@ -1,5 +1,5 @@
 {
-  "name": "dumbplates",
+  "name": "jsx-templates-in-nodejs",
   "version": "0.0.3",
   "description": "A dumb template engine",
   "main": "index.js",
