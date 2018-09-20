@@ -1,5 +1,5 @@
 const {all} = require('./lists/tags');
-const tag = require('./tag');
+const tag = require('./node');
 
 const tags = {}; 
 

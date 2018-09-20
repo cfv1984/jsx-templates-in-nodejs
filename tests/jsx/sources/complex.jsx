@@ -1,4 +1,4 @@
-const JSXTemplates = require('../../../src/tag');
+const JSXTemplates = require('../../../src/node');
 
 module.exports = () => <html lang="en">
     <head>
