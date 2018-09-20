@@ -76,10 +76,10 @@ app.set('views', './views');
 app.engine('jsx', Engine());
 app.set('view engine', 'jsx');
 
-app.get('/', function (req, res) {
+app.get('/users/:id', function (req, res) {
     res.render('profile', { 
       // This will be received in the first argument of the function contained in the JSX template file described above
-      id: Math.floor(Math.random()*10240),
+      id: req.params.id,
     });
 });
 ```
