@@ -79,7 +79,7 @@ app.set('view engine', 'jsx');
 app.get('/', function (req, res) {
     res.render('profile', { 
       // This will be received in the first argument of the function contained in the JSX template file described above
-      randomNumber: Math.floor(Math.random()*10240),
+      id: Math.floor(Math.random()*10240),
     });
 });
 ```
