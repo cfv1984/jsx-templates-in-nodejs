@@ -1,4 +1,4 @@
-const { Renderer }   = require('jsx-templates-in-nodejs');
+const { Renderer }   = require('../index');
 const defaultOptions = {
     shouldFormat: true
 };
@@ -30,12 +30,3 @@ module.exports = (cfg = defaultOptions) => {
         callback(null, output);
     };
 };
-
-/*
-
-app.set('views', './views');
-app.engine('jsx', dumbplatesEngine());
-app.set('view engine', 'jsx');
-
-
-*/
