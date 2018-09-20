@@ -1,4 +1,4 @@
-const JSXTemplates = require('../../../src/node');
+const Transform = require('../../../index');
 
 const Label = (props, children) => <span 
         class={props.class} 

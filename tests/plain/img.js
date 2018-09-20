@@ -1,6 +1,6 @@
 const diff   = (first,second) => require('diff').diffChars(first, second).map(({value}) => value).filter(v => v);
 const assert = require('assert');
-const {img}  = require('../../src');
+const {img}  = require('../../src/tags');
 const render = require('../../src/renderer');
 
 const object = img({src:'void.jpg', alt:'This is an example'});

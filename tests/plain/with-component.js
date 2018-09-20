@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {html, head, meta, title, body, main, div, span, strong} = require('../../src');
+const {html, head, meta, title, body, main, div, span, strong} = require('../../src/tags');
 const render = require('../../src/renderer');
 
 const Label =  (text) => span({class:"label","data-contrived-example":"value"}, [

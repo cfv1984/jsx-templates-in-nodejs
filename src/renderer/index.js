@@ -7,8 +7,12 @@ const renderChildren = (children = [], options = defaultOptions) => children
     .map(child => renderer(child, options))
     .join(' ')
 
+
+const isNode       = (obj) => ['name','attributes','children'].every(attr => Boolean(obj[attr]));
+const isActionable = (obj) => obj && (obj instanceof Array || obj instanceof Function || isNode(obj));
+
 const renderer = (input, options = defaultOptions) => {
-    if (input.constructor === String) return input;
+    if (!isActionable(input)) return input;
 
     const { name, attributes = {}, children = [] } = input;
     let stringifiedAttributes = stringifyAttributes(attributes);

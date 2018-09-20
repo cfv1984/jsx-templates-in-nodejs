@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {html, head, meta, title, body, main, div} = require('../../src');
+const {html, head, meta, title, body, main, div} = require('../../src/tags');
 const render = require('../../src/renderer');
 
 const object = html({ lang:'en'}, [
